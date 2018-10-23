@@ -1,6 +1,8 @@
 # RNChatkitFileShare
 A sample React Native app showing how to create a file-sharing app using Chatkit.
 
+Full tutorial is available at: [https://pusher.com/tutorials/file-sharing-react-native](https://pusher.com/tutorials/file-sharing-react-native)
+
 ### Prerequisites
 
 - [Expo](https://expo.io/)
