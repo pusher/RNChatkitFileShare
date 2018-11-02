@@ -19,7 +19,7 @@ Full tutorial is available at: [https://pusher.com/tutorials/file-sharing-react-
 1. Clone the repo:
 
 ```
-git clone https://github.com/anchetaWern/RNChatkitFileShare.git
+git clone https://github.com/pusher/RNChatkitFileShare.git
 ```
 
 2. Install the app dependencies:

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 
-import Chatkit from "@pusher/chatkit";
+import Chatkit from "@pusher/chatkit-client";
 
 import randomstring from "random-string";
 
@@ -106,7 +106,7 @@ export default class Chat extends Component {
         await this.currentUser.subscribeToRoom({
           roomId: room.id,
           hooks: {
-            onNewMessage: this.onReceive
+            onMessage: this.onReceive
           }
         });
 
@@ -127,17 +127,6 @@ export default class Chat extends Component {
     this.setState({
       is_modal_visible: true
     });
-  };
-
-  fetchAttachment = async link => {
-    let file = await this.currentUser.fetchAttachment({
-      url: link
-    });
-
-    return {
-      name: file.file.name,
-      link: file.link
-    };
   };
 
   onReceive = async data => {
@@ -267,23 +256,16 @@ export default class Chat extends Component {
       }
     };
 
-    if (attachment && attachment.fetchRequired) {
+    if (attachment) {
       const { link, type } = attachment;
 
-      let file = await this.fetchAttachment(attachment.link);
-
-      if (type == "image") {
-        msg_data.image = file.link;
+      if (type === "image") {
+        msg_data.image = link;
       } else {
-        msg_data.text += `\nattached:\n${file.name}`;
+        msg_data.text += `\nsee attached: ${link}\n`;
       }
 
-      file_data = {
-        id: id,
-        name: file.name,
-        link: file.link,
-        type: type
-      };
+      file_data = { id, link, type };
     }
 
     return {
